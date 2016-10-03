@@ -1,0 +1,35 @@
+debug: true
+
+#spring:
+#  aop:
+#    proxy-target-class: true
+
+server:
+  port: 90
+  context-path: /
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      accessTokenUri: http://localhost:99/uaa/oauth/token
+      userAuthorizationUri: http://localhost:99/uaa/oauth/authorize
+      clientId: client
+      clientSecret: secret
+    resource:
+      userInfoUri: http://localhost:99/uaa/user
+
+zuul:
+  routes:
+    resource:
+      path: /resource/**
+      url: http://localhost:91/resource
+    authserver:
+      path: /uaa/**
+      url: http://localhost:99/uaa
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
