@@ -1,0 +1,9 @@
+
+server:
+    port: 92
+    context-path: /resource
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:91/uaa/user
+
