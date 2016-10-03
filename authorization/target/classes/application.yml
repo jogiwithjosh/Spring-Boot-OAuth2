@@ -1,0 +1,47 @@
+#SECURITY
+security:
+  basic:
+    enabled: false
+  sessions: if-required
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      access-token-validity-seconds: 300
+      access-token-uri: http://localhost:99/uaa/oauth/token
+      user-authorization-uri: http://localhost:99/uaa/oauth/authorize
+      scope: read, write
+      authorized-grant-types: authorization_code,refresh_token,password
+    resource:
+      token-info-uri: http://localhost:99/uaa/oauth/check_token
+      user-info-uri: http://localhost:99/uaa/user
+    sso:
+      login-path: http://localhost:99/uaa/login
+    authorization:
+      check-token-access: permitAll()
+# SERVER
+server:
+  port: 99
+  context-path: /uaa
+# LOGGING
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+# SPRING
+spring:
+  application:
+    name: uaa
+  
+  datasource:
+      url: jdbc:mysql://localhost:3306/oauth2?createDatabaseIfNotExist=true
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: root
+  jpa:
+      database-platform: org.hibernate.dialect.MySQL5Dialect
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+
+
